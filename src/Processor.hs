@@ -8,10 +8,13 @@ module Processor
 import TextTypes
 import Data.Char (isSpace, isAlphaNum)
 
--- | Collapse tabs 
 normalizeSpaces :: String -> String
 normalizeSpaces =
-  unwords . words . map (\c -> if c == '\t' then ' ' else c)
+  unlines . map normLine . lines
+  where
+    normLine :: String -> String
+    normLine =
+      unwords . words . map (\c -> if c == '\t' then ' ' else c)
 
 -- [Token]
 tokenize :: String -> [Token]

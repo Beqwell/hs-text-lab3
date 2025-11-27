@@ -1,13 +1,27 @@
 module Main (main) where
 
-import Processor (normalizeSpaces, splitIntoSentences, swapFirstLastInSentence, renderSentences)
+import Processor
+  ( normalizeSpaces
+  , splitIntoSentences
+  , swapFirstLastInSentence
+  , renderSentences
+  )
 
 main :: IO ()
 main = do
-  inp <- readFile "input.txt"      
+  inp <- readFile "input.txt"
+
   let normalized = normalizeSpaces inp
-      sentences  = splitIntoSentences normalized
-      swapped    = map swapFirstLastInSentence sentences
-      out        = renderSentences swapped
+      processedLines = map processLine (lines normalized)
+      out = unlines processedLines
+
   writeFile "output.txt" out
   putStrLn "Result written to output.txt"
+
+processLine :: String -> String
+processLine line
+  | null line = ""  
+  | otherwise =
+      let sentences = splitIntoSentences line
+          swapped   = map swapFirstLastInSentence sentences
+      in renderSentences swapped
