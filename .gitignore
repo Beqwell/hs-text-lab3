@@ -1,0 +1,29 @@
+# Stack build artifacts
+.stack-work/
+.stack-work/*
+
+# Cabal / Stack files
+dist/
+dist-newstyle/
+*.cabal-sandbox
+cabal.sandbox.config
+
+# Haskell compilation
+*.hi
+*.o
+
+# Editor / IDE files
+*.swp
+*.tmp
+*.log
+*.DS_Store
+*.vscode/
+
+# OS trash
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Project outputs
+input.txt
+output.txt
