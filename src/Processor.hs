@@ -8,6 +8,9 @@ module Processor
 import TextTypes
 import Data.Char (isSpace, isAlphaNum)
 
+isWordChar :: Char -> Bool
+isWordChar c = isAlphaNum c || c == '\''
+
 normalizeSpaces :: String -> String
 normalizeSpaces =
   unlines . map normLine . lines
@@ -24,7 +27,8 @@ tokenize = go [] []
       let acc' = if null accWord then acc else acc ++ [TWord accWord]
       in acc'
     go accWord acc (c:cs)
-      | isAlphaNum c = go (accWord ++ [c]) acc cs
+      | isWordChar c =                     
+          go (accWord ++ [c]) acc cs
       | c `elem` ".!?" =
           let acc1 = if null accWord then acc else acc ++ [TWord accWord]
           in go [] (acc1 ++ [TPunct c]) cs
